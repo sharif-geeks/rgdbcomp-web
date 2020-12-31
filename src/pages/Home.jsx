@@ -1,8 +1,8 @@
-import DiagramViz from "../comps/DiagramViz";
-import Header from "../comps/Header";
+import DiagramViz from "~/comps/DiagramViz";
+import Header from "~/comps/Header";
 import styled from "styled-components";
-import ReportExplorer from "../comps/ReportExplorer";
-import Details from '../comps/Details'
+import ReportExplorer from "~/comps/ReportExplorer";
+import Details from "~/comps/Details";
 
 export default function Home() {
   return (
