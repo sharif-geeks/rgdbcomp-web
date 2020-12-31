@@ -11,7 +11,8 @@ export default function App() {
 
 const theme = createMuiTheme({
   props: {},
-  palette: {
-    type: "dark",
-  },
+  breakpoints: {},
+  shape: { borderRadius: 18 },
+  palette: { type: "dark" },
+  typography: { fontFamily: "Ubuntu" },
 });

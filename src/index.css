@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Ubuntu&family=Oxygen&display=swap');
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Ubuntu', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -16,10 +18,36 @@ body::before {
   width: 100%; height: 100%;
   z-index: -1;
   background-image: url('./assets/images/bg-image.jpg');
-  filter: brightness(50%) blur(2px);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+  filter: brightness(50%) blur(8px);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+#root {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+}
+
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #2225;
+  border-radius: 2.5px;
+}
+::-webkit-scrollbar-thumb {
+  background: #fff9;
+  border-radius: 2.5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #fffd;
 }
