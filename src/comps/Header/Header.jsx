@@ -1,5 +1,7 @@
-function Header() {
-  return <></>;
+import styled from "styled-components";
+
+export default function Header() {
+  return <Container>header</Container>;
 }
 
-export default Header;
+const Container = styled.div``;

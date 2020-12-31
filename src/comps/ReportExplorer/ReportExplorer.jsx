@@ -8,22 +8,13 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import TreeView from "@material-ui/lab/TreeView";
 import TreeItem from "@material-ui/lab/TreeItem";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "100%"
-  },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    fontWeight: theme.typography.fontWeightRegular
-  }
-}));
+import styled from "styled-components";
 
 export default function ReportExplorer() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <Container>
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -75,6 +66,17 @@ export default function ReportExplorer() {
           </Typography>
         </AccordionSummary>
       </Accordion>
-    </div>
+    </Container>
   );
 }
+
+const useStyles = makeStyles((theme) => ({
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    fontWeight: theme.typography.fontWeightRegular,
+  },
+}));
+
+const Container = styled.div`
+  flex: 0 0 400px;
+`;

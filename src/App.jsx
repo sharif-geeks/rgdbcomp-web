@@ -10,5 +10,8 @@ export default function App() {
 }
 
 const theme = createMuiTheme({
-  status: {},
+  props: {},
+  palette: {
+    type: "dark",
+  },
 });
