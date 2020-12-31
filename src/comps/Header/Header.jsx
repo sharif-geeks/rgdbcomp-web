@@ -15,7 +15,11 @@ export default function Header() {
         <Typography variant="h5" gutterBottom>
           Relational Database vs Graph Database Comparison
         </Typography>
-        <Typography variant="subtitle2" gutterBottom>
+        <Typography
+          variant="subtitle2"
+          style={{ fontFamily: "Righteous" }}
+          gutterBottom
+        >
           ARMAN SALEHI, AMIR HOSSEIN HAMI RAZAVI
         </Typography>
       </Col>
