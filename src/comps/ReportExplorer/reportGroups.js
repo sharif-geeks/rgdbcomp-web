@@ -1,18 +1,27 @@
-const list = [
+const reportGroups = [
   {
     title: "Match Report",
+    requires: ["match"],
     items: [
       {
-        title: "Initial players"
+        title: "Initial hometeam players",
+        url: ({ matchId }) => `/relation/match/${matchId}/hometeam/players`
       },
       {
-        title: "Technical statistics"
+        title: "Initial awayteam player",
+        url: ({ matchId }) => `/relation/match/${matchId}/awayteam/players`
       },
       {
-        title: "Strikers"
+        title: "Technical statistics",
+        url: ({ matchId }) => `/relation/match/${matchId}`
       },
       {
-        title: "Warned players"
+        title: "Strikers",
+        url: ({ matchId }) => `/relation/match/${matchId}/goals`
+      },
+      {
+        title: "Warned players",
+        url: ({ matchId }) => `/relation/match/${matchId}/foals`
       },
       {
         title: "Substitutions"
@@ -21,6 +30,7 @@ const list = [
   },
   {
     title: "Player Activity",
+    requires: ["player"],
     items: [
       {
         title: "Teams membership history"
@@ -32,6 +42,7 @@ const list = [
   },
   {
     title: "Team Report",
+    requires: ["team"],
     items: [
       {
         title: "Matches played by league"
@@ -49,6 +60,7 @@ const list = [
   },
   {
     title: "Contract Report",
+    requires: ["team"],
     items: [
       {
         title: "Purchased players stats"
@@ -61,6 +73,7 @@ const list = [
   },
   {
     title: "League Report",
+    requires: ["league"],
     items: [
       {
         title: "Teams statistics"
@@ -78,4 +91,4 @@ const list = [
   }
 ]
 
-export default list
+export default reportGroups
