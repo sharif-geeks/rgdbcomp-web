@@ -46,7 +46,7 @@ export default function ReportExplorer() {
   );
 }
 
-const ReportsList = (index) => {
+const ReportsList = ({ index }) => {
   const reports = [
     { label: "report1" },
     { label: "report2" },
@@ -71,6 +71,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = styled.div`
   padding: 22px;
+  text-transform: uppercase;
 `;
 
 const Wrapper = styled.div`
