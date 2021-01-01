@@ -1,5 +1,5 @@
 function GraphModel() {
-  return <></>;
+  return <div>graph</div>;
 }
 
 export default GraphModel;

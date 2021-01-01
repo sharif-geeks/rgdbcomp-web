@@ -21,7 +21,7 @@ export default function DiagramViz() {
 
   return (
     <Container>
-      <ModelView /* ---- */>
+      <ModelView>
         <Paper square>
           <Tabs
             value={tab}
@@ -37,10 +37,10 @@ export default function DiagramViz() {
           </Tabs>
         </Paper>
         <TabPanel value={tab} index={0}>
-          <GraphModel />
+          <RelModel />
         </TabPanel>
         <TabPanel value={tab} index={1}>
-          <RelModel />
+          <GraphModel />
         </TabPanel>
       </ModelView>
     </Container>
@@ -60,13 +60,10 @@ function TabPanel(props) {
       hidden={value !== index}
       id={`wrapped-tabpanel-${index}`}
       aria-labelledby={`wrapped-tab-${index}`}
+      style={{ height: "100%" }}
       {...other}
     >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && children}
     </div>
   );
 }

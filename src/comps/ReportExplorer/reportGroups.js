@@ -5,26 +5,29 @@ const reportGroups = [
     items: [
       {
         title: "Initial hometeam players",
-        url: ({ matchId }) => `/relation/match/${matchId}/hometeam/players`
+        displayKey: "full_name",
+        relational: (matchId) => `/relation/match/${matchId}/hometeam/players`
       },
       {
         title: "Initial awayteam player",
-        url: ({ matchId }) => `/relation/match/${matchId}/awayteam/players`
+        displayKey: "full_name",
+        relational: (matchId) => `/relation/match/${matchId}/awayteam/players`
       },
       {
         title: "Technical statistics",
-        url: ({ matchId }) => `/relation/match/${matchId}`
+        relational: (matchId) => `/relation/match/${matchId}`
       },
       {
         title: "Strikers",
-        url: ({ matchId }) => `/relation/match/${matchId}/goals`
+        relational: (matchId) => `/relation/match/${matchId}/goals`
       },
       {
         title: "Warned players",
-        url: ({ matchId }) => `/relation/match/${matchId}/foals`
+        relational: (matchId) => `/relation/match/${matchId}/foals`
       },
       {
-        title: "Substitutions"
+        title: "Substitutions",
+        relational: (matchId) => `/relation/match/${matchId}/ex`
       }
     ]
   },
@@ -33,7 +36,7 @@ const reportGroups = [
     requires: ["player"],
     items: [
       {
-        title: "Teams membership history"
+        title: "Teams membership history",
       },
       {
         title: "Leagues playing records"
@@ -42,16 +45,18 @@ const reportGroups = [
   },
   {
     title: "Team Report",
-    requires: ["team"],
+    requires: ["team", "league"],
     items: [
       {
-        title: "Matches played by league"
+        title: "Matches played by league",
+
       },
       {
         title: "Coaches records"
       },
       {
-        title: "Present players technical stats"
+        title: "Present players technical stats",
+        relational: (teamId) => `/relation/team/${teamId}/players`
       },
       {
         title: "Current coach info"
@@ -65,7 +70,10 @@ const reportGroups = [
       {
         title: "Purchased players stats"
       },
-      { title: "Team players contracts" },
+      {
+        title: "Team players contracts",
+        relational: (teamId) => `/relation/team/${teamId}/contract`
+      },
       { title: "Team tech staff contracts" },
       { title: "Team total spent on players" },
       { title: "Team total spent on staff" }
@@ -76,13 +84,19 @@ const reportGroups = [
     requires: ["league"],
     items: [
       {
-        title: "Teams statistics"
+        title: "Teams statistics",
+        displayKeys: ["full_name"],
+        relational: (leagueId) => `/relation/league/${leagueId}/teams`
       },
       {
-        title: "Matches statistics"
+        title: "Matches statistics",
+        displayKeys: ["date_gmt", "stadium_name"],
+        relational: (leagueId) => `/relation/league/${leagueId}/matches`
       },
       {
-        title: "Players technical stats"
+        title: "Players technical stats",
+        displayKeys: ["full_name"],
+        relational: (leagueId) => `/relation/league/${leagueId}/players`
       },
       {
         title: "Excluded players"

@@ -1,10 +1,16 @@
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import axios from "axios";
+import { RecoilRoot } from "recoil";
 import Home from "./pages/Home";
+
+axios.defaults.baseURL = "http://localhost:3001/";
 
 export default function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Home />
+      <RecoilRoot>
+        <Home />
+      </RecoilRoot>
     </ThemeProvider>
   );
 }
