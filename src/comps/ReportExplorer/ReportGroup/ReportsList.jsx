@@ -3,7 +3,7 @@ import React, { useCallback, useMemo, useState } from "react";
 import styled from "styled-components";
 import ReportsListItem from "./ReportsListItem";
 
-const perPage = 15;
+const perPage = 8;
 
 export default function ReportsList({ index, data, item }) {
   const reports = data?.info || [];
@@ -37,6 +37,7 @@ export default function ReportsList({ index, data, item }) {
           count={pagesCount}
           size="small"
           onChange={handleChangePage}
+          color="primary"
         />
       )}
     </Container>
@@ -46,4 +47,5 @@ export default function ReportsList({ index, data, item }) {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  margin: 12px 0 18px 0;
 `;

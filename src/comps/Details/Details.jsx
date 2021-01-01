@@ -8,29 +8,25 @@ import {
 } from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
 import SearchIcon from "@material-ui/icons/Search";
-import { useCallback, useMemo, useState } from "react";
+import { Fragment, useCallback, useMemo, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { detailsAtom } from "~/recoil";
+import { detailsAtom, rgdbAtom, speedAtom } from "~/recoil";
 import { Row } from "../shared";
 
 export default function Details() {
-  const classes = useStyles();
-
-  const [substr, setSubstr] = useState("");
-  const handleSearchInputChange = useCallback(
-    (e) => setSubstr(e.target.value),
-    []
-  );
-
   const [details] = useRecoilState(detailsAtom);
-  const data = useMemo(
-    () =>
-      Object.keys(details)
-        .filter((d) => d.includes(substr))
-        .map((key) => ({ key: key, value: details[key] })),
-    [details, substr]
-  );
+  const [r0g1] = useRecoilState(rgdbAtom);
+
+  const groups = useMemo(() => {
+    if (!r0g1) return [details];
+    else {
+      let groups = [];
+      const keys = Object.keys(details);
+      for (const i in keys) groups = [...groups, details[keys[i]]];
+      return groups;
+    }
+  }, [details, r0g1]);
 
   return (
     <Container>
@@ -48,36 +44,78 @@ export default function Details() {
           </Tabs>
         </Paper>
 
-        <Paper component="form" className={classes.root}>
-          <InputBase
-            className={classes.input}
-            placeholder="Search Keys"
-            inputProps={{ "aria-label": "search keys" }}
-            onChange={handleSearchInputChange}
-            fullWidth
-          />
-          <Divider className={classes.divider} orientation="vertical" />
-          <IconButton
-            type="submit"
-            className={classes.iconButton}
-            aria-label="search"
-          >
-            <SearchIcon />
-          </IconButton>
-        </Paper>
+        {groups.map((list, i) => (
+          <Fragment key={i}>
+            <ListView items={list} name={!!r0g1 && Object.keys(details)[i]} />
+            <Divider />
+          </Fragment>
+        ))}
 
-        <InfoWrapper>
-          {data.map(({ key, value }, i) => (
-            <Row>
-              <p>{key}</p>
-              <p>{value}</p>
-            </Row>
-          ))}
-        </InfoWrapper>
+        <SpeedAnalyse />
       </Wrapper>
     </Container>
   );
 }
+
+const ListView = ({ items, name }) => {
+  const classes = useStyles();
+
+  const [substr, setSubstr] = useState("");
+  const handleSearchInputChange = useCallback(
+    (e) => setSubstr(e.target.value),
+    []
+  );
+
+  const data = useMemo(
+    () =>
+      Object.keys(items)
+        .filter((d) => d.includes(substr))
+        .map((key) => ({ key: key, value: items[key] })),
+    [items, substr]
+  );
+
+  return (
+    <Fragment>
+      <Paper component="form" className={classes.root}>
+        <InputBase
+          className={classes.input}
+          placeholder={`Search ${name ? '"' + name + '"' : "keys"}`}
+          inputProps={{ "aria-label": "search keys" }}
+          onChange={handleSearchInputChange}
+          fullWidth
+        />
+        <Divider className={classes.divider} orientation="vertical" />
+        <IconButton
+          type="submit"
+          className={classes.iconButton}
+          aria-label="search"
+        >
+          <SearchIcon />
+        </IconButton>
+      </Paper>
+
+      <InfoWrapper>
+        {data.map(({ key, value }, i) => (
+          <Row key={i}>
+            <p>{key}</p>
+            <p>{value}</p>
+          </Row>
+        ))}
+      </InfoWrapper>
+    </Fragment>
+  );
+};
+
+const SpeedAnalyse = () => {
+  const [speed] = useRecoilState(speedAtom);
+
+  return !speed ? null : (
+    <Row justifySpaceBetween padding="0 12px">
+      <p>Retrieved in:</p>
+      <p>{Math.round(speed)} ms</p>
+    </Row>
+  );
+};
 
 const useStyles = makeStyles((theme) => ({
   root: {

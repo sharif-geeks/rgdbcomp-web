@@ -35,7 +35,10 @@ export default function ReportGroupItem({ item, index, reportGroup }) {
   }, [ids, item, params, r0g1, reportGroup.requires]);
 
   return !data ? null : (
-    <TreeItem nodeId={"depth1-" + index} label={item.title}>
+    <TreeItem
+      nodeId={"depth1-" + index}
+      label={`${item.title} (${data.info?.length || 0})`}
+    >
       <ReportsList index={index} data={data} item={item} />
     </TreeItem>
   );

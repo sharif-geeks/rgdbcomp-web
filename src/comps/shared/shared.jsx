@@ -8,4 +8,5 @@ export const CursorPointer = styled.div`
 export const Row = styled.div`
   display: flex;
   justify-content: space-between;
+  padding: ${(props) => props.padding};
 `;

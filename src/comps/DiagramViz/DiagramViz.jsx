@@ -1,14 +1,13 @@
-import { makeStyles, Paper, Tab, Tabs } from "@material-ui/core";
+import { Paper, Tab, Tabs } from "@material-ui/core";
 import { useCallback } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { rgdbAtom } from "~/recoil";
+import TabPanel from "../TabPanel";
 import GraphModel from "./GraphModel";
 import RelModel from "./RelModel";
 
 export default function DiagramViz() {
-  const classes = useStyles();
-
   const [tab, setTab] = useRecoilState(rgdbAtom);
   const handleTabChange = useCallback((e, newValue) => setTab(newValue), [
     setTab,
@@ -23,7 +22,6 @@ export default function DiagramViz() {
             indicatorColor="primary"
             textColor="primary"
             onChange={handleTabChange}
-            className={classes.tabs}
             style={{ borderRadius: [20, 20, 20, 20] }}
             variant="fullWidth"
           >
@@ -39,27 +37,6 @@ export default function DiagramViz() {
         </TabPanel>
       </ModelView>
     </Container>
-  );
-}
-
-const useStyles = makeStyles((theme) => ({
-  tabs: {},
-}));
-
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`wrapped-tabpanel-${index}`}
-      aria-labelledby={`wrapped-tab-${index}`}
-      style={{ height: "100%" }}
-      {...other}
-    >
-      {value === index && children}
-    </div>
   );
 }
 

@@ -60,6 +60,7 @@
     "react-icons": "^4.1.0",
     "react-refresh": "^0.8.3",
     "react-router-dom": "^5.2.0",
+    "react-vis-network": "^1.0.0",
     "recoil": "^0.1.2",
     "resolve": "1.18.1",
     "resolve-url-loader": "^3.1.2",

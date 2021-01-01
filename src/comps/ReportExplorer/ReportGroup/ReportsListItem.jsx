@@ -1,15 +1,17 @@
 import TreeItem from "@material-ui/lab/TreeItem";
 import React, { useCallback } from "react";
 import { useSetRecoilState } from "recoil";
-import { detailsAtom, tablesAtom } from "~/recoil";
+import { detailsAtom, speedAtom, tablesAtom } from "~/recoil";
 
 export default function ReportsListItem({ index, data, item, report, i }) {
   const setDetails = useSetRecoilState(detailsAtom);
   const setTables = useSetRecoilState(tablesAtom);
+  const setSpeed = useSetRecoilState(speedAtom);
 
   const handleClick = useCallback(
     (report) => {
       setDetails(report);
+      setSpeed(data?.time);
 
       const tables = data?.tables;
       if (tables) setTables(tables);
@@ -19,7 +21,15 @@ export default function ReportsListItem({ index, data, item, report, i }) {
         console.log(graph);
       }
     },
-    [data?.edges, data?.nodes, data?.tables, setDetails, setTables]
+    [
+      data?.edges,
+      data?.nodes,
+      data?.tables,
+      data?.time,
+      setDetails,
+      setSpeed,
+      setTables,
+    ]
   );
 
   const label = ` • \xa0 ${item.displayKeys

@@ -1,6 +1,9 @@
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import axios from "axios";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { RecoilRoot } from "recoil";
+import PageLayout from "./comps/PageLayout";
+import Docs from "./pages/Docs";
 import Home from "./pages/Home";
 
 axios.defaults.baseURL =
@@ -10,11 +13,22 @@ axios.defaults.baseURL =
 
 export default function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <RecoilRoot>
-        <Home />
-      </RecoilRoot>
-    </ThemeProvider>
+    <RecoilRoot>
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <PageLayout>
+            <Switch>
+              <Route path="/docs">
+                <Docs />
+              </Route>
+              <Route path="/">
+                <Home />
+              </Route>
+            </Switch>
+          </PageLayout>
+        </BrowserRouter>
+      </ThemeProvider>
+    </RecoilRoot>
   );
 }
 
