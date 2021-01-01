@@ -8,15 +8,22 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import TreeItem from "@material-ui/lab/TreeItem";
 import TreeView from "@material-ui/lab/TreeView";
 import axios from "axios";
-import React, { Fragment, useCallback, useEffect, useState } from "react";
-import { useSetRecoilState } from "recoil";
-import { detailsAtom, tablesAtom } from "~/recoil";
+import React, {
+  Fragment,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { detailsAtom, idsAtom, rgdbAtom, tablesAtom } from "~/recoil";
 
-export default function ReportGroup({ reportGroup, values }) {
+export default function ReportGroup({ data: reportGroup }) {
   const classes = useStyles();
+  const [ids] = useRecoilState(idsAtom);
 
   for (const i in reportGroup.requires) {
-    if (!values[reportGroup.requires[i]]) return null;
+    if (!ids[reportGroup.requires[i]]) return null;
   }
 
   return (
@@ -45,11 +52,23 @@ export default function ReportGroup({ reportGroup, values }) {
 
 const ReportGroupItem = ({ item, index, reportGroup }) => {
   const [data, setData] = useState();
+  const [ids] = useRecoilState(idsAtom);
+  const [r0g1] = useRecoilState(rgdbAtom);
+
+  const requires = reportGroup.requires;
+
+  const params = useMemo(() => {
+    let newParams = [];
+    for (const i in requires) {
+      newParams = [...newParams, ids[requires[i]]];
+    }
+    return newParams;
+  }, [ids, requires]);
 
   useEffect(() => {
-    if (typeof item["relational"] === "function") {
+    if (typeof item[!r0g1 ? "relational" : "graph"] === "function") {
       axios
-        .get(item["relational"](1))
+        .get(item[!r0g1 ? "relational" : "graph"](...params))
         .then((res) => {
           console.log(res);
           setData(res.data);
@@ -58,7 +77,7 @@ const ReportGroupItem = ({ item, index, reportGroup }) => {
           console.log(err.response);
         });
     }
-  }, [item]);
+  }, [ids, item, params, r0g1, reportGroup.requires]);
 
   return !data ? null : (
     <TreeItem nodeId={"depth1-" + index} label={item.title}>
@@ -94,6 +113,7 @@ const ReportsList = ({ index, data, item }) => {
         const label = ` • \xa0 ${item.displayKeys
           ?.map(
             (key) =>
+              report[key] &&
               report[key].slice(0, 22) + (report[key].length > 22 ? "..." : "")
           )
           .join(" \n ")}`;

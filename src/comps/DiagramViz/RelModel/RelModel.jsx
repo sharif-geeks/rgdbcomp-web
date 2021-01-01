@@ -17,7 +17,13 @@ function RelModel() {
     if (_container.current) {
       var network = new Network(
         _container.current,
-        { nodes, edges: [{ from: 0, to: 1 }] },
+        {
+          nodes,
+          edges: [
+            { from: 0, to: 1 },
+            { from: 1, to: 2 },
+          ],
+        },
         options
       );
       console.log(network);

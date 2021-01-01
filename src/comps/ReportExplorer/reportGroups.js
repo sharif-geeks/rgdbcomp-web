@@ -5,28 +5,32 @@ const reportGroups = [
     items: [
       {
         title: "Initial hometeam players",
-        displayKey: "full_name",
+        displayKeys: ["full_name"],
         relational: (matchId) => `/relation/match/${matchId}/hometeam/players`
       },
       {
         title: "Initial awayteam player",
-        displayKey: "full_name",
+        displayKeys: ["full_name"],
         relational: (matchId) => `/relation/match/${matchId}/awayteam/players`
       },
       {
         title: "Technical statistics",
+        displayKeys: ["date_gmt", "stadium_name"],
         relational: (matchId) => `/relation/match/${matchId}`
       },
       {
         title: "Strikers",
+        displayKeys: ["full_name"],
         relational: (matchId) => `/relation/match/${matchId}/goals`
       },
       {
         title: "Warned players",
+        displayKeys: ["full_name"],
         relational: (matchId) => `/relation/match/${matchId}/foals`
       },
       {
         title: "Substitutions",
+        displayKeys: ["playerin", "playerout"],
         relational: (matchId) => `/relation/match/${matchId}/ex`
       }
     ]
@@ -56,6 +60,7 @@ const reportGroups = [
       },
       {
         title: "Present players technical stats",
+        displayKeys: ["full_name"],
         relational: (teamId) => `/relation/team/${teamId}/players`
       },
       {
@@ -72,6 +77,7 @@ const reportGroups = [
       },
       {
         title: "Team players contracts",
+        displayKeys: ["full_name"],
         relational: (teamId) => `/relation/team/${teamId}/contract`
       },
       { title: "Team tech staff contracts" },

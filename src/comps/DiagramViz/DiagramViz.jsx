@@ -1,23 +1,18 @@
-import { useCallback, useState } from "react";
+import { makeStyles, Paper, Tab, Tabs } from "@material-ui/core";
+import { useCallback } from "react";
+import { useRecoilState } from "recoil";
+import styled from "styled-components";
+import { rgdbAtom } from "~/recoil";
 import GraphModel from "./GraphModel";
 import RelModel from "./RelModel";
-import styled from "styled-components";
-import {
-  Box,
-  makeStyles,
-  Paper,
-  Tab,
-  Tabs,
-  Typography,
-} from "@material-ui/core";
 
 export default function DiagramViz() {
   const classes = useStyles();
 
-  const [tab, setTab] = useState(0);
-  const handleTabChange = useCallback((event, newValue) => {
-    setTab(newValue);
-  }, []);
+  const [tab, setTab] = useRecoilState(rgdbAtom);
+  const handleTabChange = useCallback((e, newValue) => setTab(newValue), [
+    setTab,
+  ]);
 
   return (
     <Container>

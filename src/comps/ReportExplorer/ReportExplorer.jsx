@@ -12,12 +12,6 @@ export default function ReportExplorer() {
   const [showSelectors, setShowSelectors] = useState(true);
   const toggleSelectors = useCallback(() => setShowSelectors((v) => !v), []);
 
-  const [values, setValues] = useState({ league: 1 });
-  const onSelect = useCallback(
-    ({ slug, value }) => setValues((v) => ({ ...v, [slug]: value })),
-    []
-  );
-
   return (
     <Container>
       <Header>
@@ -37,12 +31,7 @@ export default function ReportExplorer() {
       {showSelectors && (
         <SelectorsWrapper>
           {selectors.map((selector, i) => (
-            <Selector
-              {...selector}
-              values={values}
-              onSelect={onSelect}
-              key={i}
-            />
+            <Selector {...selector} key={i} />
           ))}
         </SelectorsWrapper>
       )}
@@ -52,7 +41,7 @@ export default function ReportExplorer() {
       </Header>
       <ReportGroupsWrapper>
         {reportGroups.map((reportGroup, i) => (
-          <ReportGroup reportGroup={reportGroup} values={values} key={i} />
+          <ReportGroup data={reportGroup} key={i} />
         ))}
       </ReportGroupsWrapper>
     </Container>
