@@ -3,7 +3,10 @@ import axios from "axios";
 import { RecoilRoot } from "recoil";
 import Home from "./pages/Home";
 
-axios.defaults.baseURL = "http://localhost:3001/";
+axios.defaults.baseURL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000/"
+    : "http://localhost:3000/";
 
 export default function App() {
   return (

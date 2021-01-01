@@ -73,16 +73,26 @@ const reportGroups = [
     requires: ["team"],
     items: [
       {
-        title: "Purchased players stats"
+        title: "Purchased players stats",
+        displayKeys: ["full_name"],
+        relational: (teamId) => `/relation/team/${teamId}/players`
       },
       {
         title: "Team players contracts",
         displayKeys: ["full_name"],
         relational: (teamId) => `/relation/team/${teamId}/contract`
       },
-      { title: "Team tech staff contracts" },
-      { title: "Team total spent on players" },
-      { title: "Team total spent on staff" }
+      {
+        title: "Team tech staff contracts",
+        displayKeys: ["full_name"],
+        relational: (teamId) => `/relation/team/${teamId}/noneplayer`
+      },
+      {
+        title: "Team total spent on players"
+      },
+      {
+        title: "Team total spent on staff"
+      }
     ]
   },
   {

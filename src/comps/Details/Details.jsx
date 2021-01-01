@@ -12,6 +12,7 @@ import { useCallback, useMemo, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { detailsAtom } from "~/recoil";
+import { Row } from "../shared";
 
 export default function Details() {
   const classes = useStyles();
@@ -97,11 +98,6 @@ const useStyles = makeStyles((theme) => ({
     margin: 4,
   },
 }));
-
-const Row = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
 
 const InfoWrapper = styled.div`
   flex: 1;

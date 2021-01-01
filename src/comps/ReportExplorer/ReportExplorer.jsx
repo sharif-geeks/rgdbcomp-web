@@ -3,7 +3,8 @@ import Typography from "@material-ui/core/Typography";
 import { ExpandLessRounded, ExpandMoreRounded } from "@material-ui/icons";
 import React, { useCallback, useState } from "react";
 import styled from "styled-components";
-import ReportGroup from "./ReportGroup";
+import { CursorPointer } from "../shared";
+import ReportGroup from "./ReportGroup/ReportGroup";
 import reportGroups from "./reportGroups";
 import Selector from "./Selector";
 import selectors from "./selectors";
@@ -16,17 +17,13 @@ export default function ReportExplorer() {
     <Container>
       <Header>
         <Typography variant="subtitle1">Select Items</Typography>
-        {showSelectors ? (
-          <ExpandMoreRounded
-            onClick={toggleSelectors}
-            style={{ cursor: "pointer" }}
-          />
-        ) : (
-          <ExpandLessRounded
-            onClick={toggleSelectors}
-            style={{ cursor: "pointer" }}
-          />
-        )}
+        <CursorPointer>
+          {showSelectors ? (
+            <ExpandMoreRounded onClick={toggleSelectors} />
+          ) : (
+            <ExpandLessRounded onClick={toggleSelectors} />
+          )}
+        </CursorPointer>
       </Header>
       {showSelectors && (
         <SelectorsWrapper>
