@@ -96,7 +96,7 @@ const ListView = ({ items, name }) => {
 
       <InfoWrapper>
         {data.map(({ key, value }, i) => (
-          <Row key={i}>
+          <Row justifySpaceBetween key={i}>
             <p>{key}</p>
             <p>{value}</p>
           </Row>

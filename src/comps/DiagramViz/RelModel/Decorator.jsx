@@ -14,7 +14,7 @@ export default function Decorator({ cols }) {
       <h2>{cols[0].table_name}</h2>
       <hr />
       {colInfosToShow.map((c) => (
-        <Row>
+        <Row justifySpaceBetween>
           <p>{c.name}</p>
           <p>{c.type}</p>
         </Row>

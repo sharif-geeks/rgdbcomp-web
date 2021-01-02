@@ -70,11 +70,19 @@ export default function Docs() {
 const RightBox = styled.div`
   flex: 0 0 calc(50% - 2px);
   background-color: #fff5;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 `;
 
 const LeftBox = styled.div`
   background-color: #fff5;
   flex: 0 0 calc(50% - 2px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 `;
 
 const Container = styled.div`
@@ -84,4 +92,5 @@ const Container = styled.div`
   overflow: hidden;
   justify-content: space-between;
   margin: 0 22px;
+  position: relative;
 `;
