@@ -45,6 +45,9 @@ const ModelView = styled.div`
   background-color: #fff5;
   border-radius: 22px 0 0 22px;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 `;
 
 const Container = styled.div`
