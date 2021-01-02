@@ -5,11 +5,8 @@ const TabContainer = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-  overflow-y: scroll;
   position: relative;
   justify-content: flex-start;
-  max-height: 100%;
   box-sizing: border-box;
 `;
 

@@ -39,8 +39,8 @@ export default function Docs() {
         <TabPanel value={leftTab} index={1}>
           tab2
         </TabPanel>
-        <TabPanel value={leftTab} index={1}>
-          tab2
+        <TabPanel value={leftTab} index={2}>
+          tab3
         </TabPanel>
       </LeftBox>
       <RightBox>
@@ -74,6 +74,9 @@ const RightBox = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 `;
 
 const LeftBox = styled.div`
@@ -83,6 +86,9 @@ const LeftBox = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 `;
 
 const Container = styled.div`

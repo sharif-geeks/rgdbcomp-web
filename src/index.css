@@ -22,7 +22,7 @@ body::before {
   background-position: center;
   background-attachment: fixed;
   background-size: cover;
-  filter: brightness(50%) blur(8px);
+  filter: brightness(30%) blur(8px);
 }
 
 code {
@@ -51,4 +51,9 @@ code {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #fffd;
+}
+
+a {
+  color: #CFCBAE;
+  text-decoration: none;
 }

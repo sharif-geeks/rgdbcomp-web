@@ -7,7 +7,7 @@ export default function TabPanel(props) {
       hidden={value !== index}
       id={`wrapped-tabpanel-${index}`}
       aria-labelledby={`wrapped-tab-${index}`}
-      style={{ height: "100%" }}
+      style={{ flex: 1, overflow: "hidden", overflowY: "scroll" }}
       {...other}
     >
       {value === index && children}

@@ -71,16 +71,15 @@ const technologies = {
       heading: "NestJS",
       body:
         "A JavaScript library for building user interfaces. Build encapsulated components that manage their own state, then compose them to make complex UIs.",
-      faces: [HayyaunAvatar, ArmanAvatar],
+      faces: [ArmanAvatar],
     },
     {
       image: NodeLogo,
-      extra: "1500 lines",
       overline: "FACEBOOK INC.",
       heading: "NodeJS",
       body:
         "A JavaScript library for building user interfaces. Build encapsulated components that manage their own state, then compose them to make complex UIs.",
-      faces: [HayyaunAvatar, ArmanAvatar],
+      faces: [ArmanAvatar, HayyaunAvatar],
     },
     {
       image: PostgreLogo,
@@ -88,16 +87,15 @@ const technologies = {
       heading: "PostgreSQL",
       body:
         "A JavaScript library for building user interfaces. Build encapsulated components that manage their own state, then compose them to make complex UIs.",
-      faces: [HayyaunAvatar],
+      faces: [ArmanAvatar],
     },
     {
       image: WebstormLogo,
-      extra: "1500 lines",
       overline: "FACEBOOK INC.",
       heading: "Webstorm",
       body:
         "A JavaScript library for building user interfaces. Build encapsulated components that manage their own state, then compose them to make complex UIs.",
-      faces: [HayyaunAvatar, ArmanAvatar],
+      faces: [ArmanAvatar],
     },
   ]
 }
