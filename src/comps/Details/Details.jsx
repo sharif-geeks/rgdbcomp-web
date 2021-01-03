@@ -8,25 +8,14 @@ import {
 } from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
 import SearchIcon from "@material-ui/icons/Search";
-import { Fragment, useCallback, useMemo, useState } from "react";
+import { Fragment, memo, useCallback, useMemo, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { detailsAtom, rgdbAtom, speedAtom } from "~/recoil";
+import { detailsAtom, speedAtom } from "~/recoil";
 import { Row } from "../shared";
 
-export default function Details() {
-  const [details] = useRecoilState(detailsAtom);
-  const [r0g1] = useRecoilState(rgdbAtom);
-
-  const groups = useMemo(() => {
-    if (!r0g1) return [details];
-    else {
-      let groups = [];
-      const keys = Object.keys(details);
-      for (const i in keys) groups = [...groups, details[keys[i]]];
-      return groups;
-    }
-  }, [details, r0g1]);
+export default memo(function Details() {
+  const [info] = useRecoilState(detailsAtom);
 
   return (
     <Container>
@@ -44,20 +33,16 @@ export default function Details() {
           </Tabs>
         </Paper>
 
-        {groups.map((list, i) => (
-          <Fragment key={i}>
-            <ListView items={list} name={!!r0g1 && Object.keys(details)[i]} />
-            <Divider />
-          </Fragment>
-        ))}
+        <ListView items={info} />
+        <Divider />
 
         <SpeedAnalyse />
       </Wrapper>
     </Container>
   );
-}
+});
 
-const ListView = ({ items, name }) => {
+const ListView = memo(({ items, name }) => {
   const classes = useStyles();
 
   const [substr, setSubstr] = useState("");
@@ -79,7 +64,7 @@ const ListView = ({ items, name }) => {
       <Paper component="form" className={classes.root}>
         <InputBase
           className={classes.input}
-          placeholder={`Search ${name ? '"' + name + '"' : "keys"}`}
+          placeholder={`Search keys`}
           inputProps={{ "aria-label": "search keys" }}
           onChange={handleSearchInputChange}
           fullWidth
@@ -104,9 +89,9 @@ const ListView = ({ items, name }) => {
       </InfoWrapper>
     </Fragment>
   );
-};
+});
 
-const SpeedAnalyse = () => {
+const SpeedAnalyse = memo(() => {
   const [speed] = useRecoilState(speedAtom);
 
   return !speed ? null : (
@@ -115,7 +100,7 @@ const SpeedAnalyse = () => {
       <p>{Math.round(speed)} ms</p>
     </Row>
   );
-};
+});
 
 const useStyles = makeStyles((theme) => ({
   root: {

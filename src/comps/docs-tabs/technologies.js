@@ -24,42 +24,44 @@ const technologies = {
       },
       {
         image: NetlifyLogo,
-        overline: "FACEBOOK INC.",
+        overline: "MAKERLOOP INC.",
         heading: "Netlify",
         body:
-          "A JavaScript library for building user interfaces. Build encapsulated components that manage their own state, then compose them to make complex UIs.",
+          "Netlify is a San Francisco-based cloud computing company that offers hosting and serverless backend services for web applications and static websites.",
         faces: [HayyaunAvatar],
       },
       {
         image: NodeLogo,
-        overline: "FACEBOOK INC.",
+        overline: "MICROSOFT CORP.",
         heading: "NodeJS",
         body:
-          "A JavaScript library for building user interfaces. Build encapsulated components that manage their own state, then compose them to make complex UIs.",
+          "Node.js is an open-source, cross-platform, back-end, JavaScript runtime environment that executes JavaScript code outside a web browser.",
         faces: [HayyaunAvatar, ArmanAvatar],
       },
       {
         image: MUILogo,
-        overline: "GOOGLE INC.",
+        overline: "COMMUNITY",
         heading: "Material UI",
         body:
-          "A JavaScript library for building user interfaces. Build encapsulated components that manage their own state, then compose them to make complex UIs.",
+          "React components for faster and easier web development. Build your own design system, or start with Material Design.",
         faces: [HayyaunAvatar],
       },
       {
         image: VisJSLogo,
-        overline: "FACEBOOK INC.",
+        overline: "COMMUNITY",
         heading: "VisJS",
         body:
-          "A JavaScript library for building user interfaces. Build encapsulated components that manage their own state, then compose them to make complex UIs.",
-        faces: [HayyaunAvatar, ArmanAvatar],
+          `A dynamic, browser based visualization library.
+          The library is designed to be easy to use, to handle large amounts of dynamic data, and to enable manipulation of and interaction with the data.
+          The library consists of the components DataSet, Timeline, Network, Graph2d and Graph3d.`,
+        faces: [HayyaunAvatar],
       },
       {
         image: VSCodeLogo,
         overline: "MICROSOFT INC.",
         heading: "VSCode",
         body:
-          "A JavaScript library for building user interfaces. Build encapsulated components that manage their own state, then compose them to make complex UIs.",
+          "Visual Studio Code is a free source-code editor made by Microsoft for Windows, Linux and macOS. Features include support for debugging, syntax highlighting, intelligent code completion, snippets, code refactoring, and embedded Git. ",
         faces: [HayyaunAvatar],
       },
     ],
@@ -67,34 +69,34 @@ const technologies = {
     {
       image: NestLogo,
       extra: "1500 lines",
-      overline: "FACEBOOK INC.",
+      overline: "COMMUNITY",
       heading: "NestJS",
       body:
-        "A JavaScript library for building user interfaces. Build encapsulated components that manage their own state, then compose them to make complex UIs.",
+        "A progressive Node.js framework for building efficient, reliable and scalable server-side applications.",
       faces: [ArmanAvatar],
     },
     {
       image: NodeLogo,
-      overline: "FACEBOOK INC.",
+      overline: "MICROSOFT CORP.",
       heading: "NodeJS",
       body:
-        "A JavaScript library for building user interfaces. Build encapsulated components that manage their own state, then compose them to make complex UIs.",
+        "Node.js is an open-source, cross-platform, back-end, JavaScript runtime environment that executes JavaScript code outside a web browser.",
       faces: [ArmanAvatar, HayyaunAvatar],
     },
     {
       image: PostgreLogo,
-      overline: "FACEBOOK INC.",
+      overline: "COMMUNITY",
       heading: "PostgreSQL",
       body:
-        "A JavaScript library for building user interfaces. Build encapsulated components that manage their own state, then compose them to make complex UIs.",
+        "PostgreSQL, also known as Postgres, is a free and open-source relational database management system emphasizing extensibility and SQL compliance. It was originally named POSTGRES, referring to its origins as a successor to the Ingres database developed at the University of California, Berkeley.",
       faces: [ArmanAvatar],
     },
     {
       image: WebstormLogo,
-      overline: "FACEBOOK INC.",
+      overline: "JETBRAINS CO.",
       heading: "Webstorm",
       body:
-        "A JavaScript library for building user interfaces. Build encapsulated components that manage their own state, then compose them to make complex UIs.",
+        "WebStorm is a cross-platform IDE primarily for web, JavaScript and TypeScript development. Many of JetBrains's other IDEs include the feature set of WebStorm via plugins.",
       faces: [ArmanAvatar],
     },
   ]

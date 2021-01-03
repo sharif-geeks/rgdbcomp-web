@@ -6,32 +6,32 @@ const reportGroups = [
       {
         title: "Initial hometeam players",
         displayKeys: ["full_name"],
-        relational: (matchId) => `/relation/match/${matchId}/hometeam/players`
+        url: (r0g1, matchId) => `/${!r0g1 ? "relation" : "graph"}/match/${matchId}/hometeam/players`
       },
       {
         title: "Initial awayteam player",
         displayKeys: ["full_name"],
-        relational: (matchId) => `/relation/match/${matchId}/awayteam/players`
+        url: (r0g1, matchId) => `/${!r0g1 ? "relation" : "graph"}/match/${matchId}/awayteam/players`
       },
       {
         title: "Technical statistics",
         displayKeys: ["date_gmt", "stadium_name"],
-        relational: (matchId) => `/relation/match/${matchId}`
+        url: (r0g1, matchId) => `/${!r0g1 ? "relation" : "graph"}/match/${matchId}`
       },
       {
         title: "Strikers",
         displayKeys: ["full_name"],
-        relational: (matchId) => `/relation/match/${matchId}/goals`
+        url: (r0g1, matchId) => `/${!r0g1 ? "relation" : "graph"}/match/${matchId}/goals`
       },
       {
         title: "Warned players",
         displayKeys: ["full_name"],
-        relational: (matchId) => `/relation/match/${matchId}/foals`
+        url: (r0g1, matchId) => `/${!r0g1 ? "relation" : "graph"}/match/${matchId}/foals`
       },
       {
         title: "Substitutions",
         displayKeys: ["playerin", "playerout"],
-        relational: (matchId) => `/relation/match/${matchId}/ex`
+        url: (r0g1, matchId) => `/${!r0g1 ? "relation" : "graph"}/match/${matchId}/ex`
       }
     ]
   },
@@ -61,7 +61,7 @@ const reportGroups = [
       {
         title: "Present players technical stats",
         displayKeys: ["full_name"],
-        relational: (teamId) => `/relation/team/${teamId}/players`
+        url: (r0g1, teamId) => `/${!r0g1 ? "relation" : "graph"}/team/${teamId}/players`
       },
       {
         title: "Current coach info"
@@ -75,17 +75,17 @@ const reportGroups = [
       {
         title: "Purchased players stats",
         displayKeys: ["full_name"],
-        relational: (teamId) => `/relation/team/${teamId}/players`
+        url: (r0g1, teamId) => `/${!r0g1 ? "relation" : "graph"}/team/${teamId}/players`
       },
       {
         title: "Team players contracts",
         displayKeys: ["full_name"],
-        relational: (teamId) => `/relation/team/${teamId}/contract`
+        url: (r0g1, teamId) => `/${!r0g1 ? "relation" : "graph"}/team/${teamId}/contract`
       },
       {
         title: "Team tech staff contracts",
         displayKeys: ["full_name"],
-        relational: (teamId) => `/relation/team/${teamId}/noneplayer`
+        url: (r0g1, teamId) => `/${!r0g1 ? "relation" : "graph"}/team/${teamId}/noneplayer`
       },
       {
         title: "Team total spent on players"
@@ -101,18 +101,19 @@ const reportGroups = [
     items: [
       {
         title: "Teams statistics",
-        displayKeys: ["full_name"],
-        relational: (leagueId) => `/relation/league/${leagueId}/teams`
+        displayKeys: ["team_name"],
+        url: (r0g1, leagueId) => `/${!r0g1 ? "relation" : "graph"}/league/${leagueId}/teams`
       },
       {
         title: "Matches statistics",
         displayKeys: ["date_gmt", "stadium_name"],
-        relational: (leagueId) => `/relation/league/${leagueId}/matches`
+        url: (r0g1, leagueId) => `/${!r0g1 ? "relation" : "graph"}/league/${leagueId}/matches`,
+        offest: true
       },
       {
         title: "Players technical stats",
         displayKeys: ["full_name"],
-        relational: (leagueId) => `/relation/league/${leagueId}/players`
+        url: (r0g1, leagueId) => `/${!r0g1 ? "relation" : "graph"}/league/${leagueId}/players`
       },
       {
         title: "Excluded players"

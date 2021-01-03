@@ -15,6 +15,7 @@ import technologies from "./technologies";
 import useCardStyles from "./useCardsStyle";
 
 const cards = technologies.frontend;
+const techs = cards.map((t) => t.image);
 
 function FrontendTab() {
   const styles = useN03TextInfoContentStyles();
@@ -34,6 +35,29 @@ function FrontendTab() {
   return (
     <TabContainer>
       <Typography variant="h5" gutterBottom>
+        <Row justifySpaceBetween alignCenter>
+          <div>Code Sandbox</div>
+          <div>
+            <FaceGroup faces={techs} />
+          </div>
+        </Row>
+      </Typography>
+      <iframe
+        src="https://codesandbox.io/embed/github/rgdbcomp/rgdbcomp-web/tree/main/?fontsize=14&hidenavigation=1&theme=dark&view=editor&moduleview=1"
+        style={{
+          width: "100%",
+          height: 500,
+          border: 0,
+          borderRadius: 4,
+          overflow: "hidden",
+          flexShrink: 0,
+        }}
+        title="frosty-flower-e0063"
+        allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+        sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+      ></iframe>
+      <Space />
+      <Typography variant="h5" gutterBottom>
         Technologies
       </Typography>
       <Row scrollX style={{ padding: "8px 0 18px 12px", flexShrink: 0 }}>
@@ -50,6 +74,7 @@ function FrontendTab() {
                 overline={card.overline}
                 heading={card.heading}
                 body={card.body}
+                bodyProps={{ className: cardStyles.body }}
               />
             </CardContent>
             <Divider />
@@ -59,24 +84,6 @@ function FrontendTab() {
           </Card>
         ))}
       </Row>
-      <Space />
-      <Typography variant="h5" gutterBottom>
-        Code Sandbox
-      </Typography>
-      <iframe
-        src="https://codesandbox.io/embed/github/rgdbcomp/rgdbcomp-web/tree/main/?fontsize=14&hidenavigation=1&theme=dark&view=editor&moduleview=1"
-        style={{
-          width: "100%",
-          height: 500,
-          border: 0,
-          borderRadius: 4,
-          overflow: "hidden",
-          flexShrink: 0,
-        }}
-        title="frosty-flower-e0063"
-        allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-        sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-      ></iframe>
       <Space />
       <Typography variant="h5" gutterBottom>
         How to Run Locally

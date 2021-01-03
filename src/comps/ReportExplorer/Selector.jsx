@@ -26,6 +26,7 @@ function Selector({
   requires,
   index,
   table,
+  url,
   ...props
 }) {
   const classes = useStyles();
@@ -48,7 +49,7 @@ function Selector({
 
   useEffect(() => {
     axios
-      .get(props[!r0g1 ? "relational" : "graph"](...params))
+      .get(url(r0g1, ...params))
       .then((res) => {
         console.log(res);
         setData(
@@ -60,8 +61,7 @@ function Selector({
         );
       })
       .catch((err) => console.log(err.response));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [r0g1, requires, table, ids, params]);
+  }, [r0g1, table, params, url]);
 
   return (
     <FormControl variant="filled" className={classes.formControl}>

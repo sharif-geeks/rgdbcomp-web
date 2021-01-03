@@ -3,7 +3,7 @@ const selectors = [
     title: "League",
     slug: "league",
     requires: [],
-    relational: () => `/relation/table/league`,
+    url: (r0g1) => `/${!r0g1 ? "relation" : "graph"}/table/league`,
     displayKey: "Name",
     table: true
   },
@@ -11,21 +11,21 @@ const selectors = [
     title: "Match",
     slug: "match",
     requires: ["league"],
-    relational: (leagueId) => `/relation/league/${leagueId}/matches`,
+    url: (r0g1, leagueId) => `/${!r0g1 ? "relation" : "graph"}/league/${leagueId}/matches`,
     displayKey: "stadium_name"
   },
   {
     title: "Team",
     slug: "team",
     requires: ["league"],
-    relational: (leagueId) => `/relation/league/${leagueId}/teams`,
-    displayKey: "full_name"
+    url: (r0g1, leagueId) => `/${!r0g1 ? "relation" : "graph"}/league/${leagueId}/teams`,
+    displayKey: "team_name"
   },
   {
     title: "Player",
     slug: "player",
     requires: ["team"],
-    relational: (teamId) => `/relation/team/${teamId}/players`,
+    url: (r0g1, teamId) => `/${!r0g1 ? "relation" : "graph"}/team/${teamId}/players`,
     displayKey: "full_name"
   }
 ]

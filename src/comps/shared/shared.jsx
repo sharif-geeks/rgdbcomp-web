@@ -9,6 +9,7 @@ export const Row = styled.div`
   display: flex;
   justify-content: ${(props) =>
     props.justifySpaceBetween ? "space-between" : "flex-start"};
+  align-items: ${(props) => (props.alignCenter ? "center" : "initial")};
   padding: ${(props) => props.padding || "initial"};
   flex-wrap: ${(props) => (props.wrap ? "wrap" : "initial")};
   overflow: hidden;
@@ -17,5 +18,5 @@ export const Row = styled.div`
 `;
 
 export const Space = styled.div`
-  flex: 0 0 ${(props) => props.s || "44px"};
+  flex: ${(props) => props.flex || `0 0 ${props.s || "44px"}`};
 `;

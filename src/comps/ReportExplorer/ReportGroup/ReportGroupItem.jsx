@@ -21,9 +21,9 @@ export default function ReportGroupItem({ item, index, reportGroup }) {
   }, [ids, requires]);
 
   useEffect(() => {
-    if (typeof item[!r0g1 ? "relational" : "graph"] === "function") {
+    if (typeof item.url === "function") {
       axios
-        .get(item[!r0g1 ? "relational" : "graph"](...params))
+        .get(item.url(r0g1, ...params))
         .then((res) => {
           console.log(res);
           setData(res.data);

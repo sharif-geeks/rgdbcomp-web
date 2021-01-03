@@ -3,11 +3,11 @@ import { useEffect, useMemo, useState } from "react";
 import { Edge, Network, Node } from "react-vis-network";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { tablesAtom } from "~/recoil";
+import { relAtom } from "~/recoil";
 import Decorator from "./Decorator";
 
 function RelModel() {
-  const [tables] = useRecoilState(tablesAtom);
+  const [{ tables }] = useRecoilState(relAtom);
   const [tableInfos, setTableInfos] = useState([]);
 
   useEffect(() => {

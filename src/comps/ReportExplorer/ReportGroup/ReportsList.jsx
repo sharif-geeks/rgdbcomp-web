@@ -17,6 +17,19 @@ export default function ReportsList({ index, data, item }) {
   ]);
   const handleChangePage = useCallback((e, value) => setPage(value), []);
 
+  const renderPagination = useMemo(
+    () =>
+      hasPagination && (
+        <Pagination
+          count={pagesCount}
+          size="small"
+          onChange={handleChangePage}
+          color="primary"
+        />
+      ),
+    [handleChangePage, hasPagination, pagesCount]
+  );
+
   return !Array.isArray(reports) ? null : (
     <Container>
       {reports
@@ -32,14 +45,7 @@ export default function ReportsList({ index, data, item }) {
         ))
         .slice(perPage * (page - 1), perPage * page - 1)}
 
-      {hasPagination && (
-        <Pagination
-          count={pagesCount}
-          size="small"
-          onChange={handleChangePage}
-          color="primary"
-        />
-      )}
+      {renderPagination}
     </Container>
   );
 }

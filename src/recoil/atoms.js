@@ -18,6 +18,10 @@ export const speedAtom = atom({
   key: "speed", default: null
 })
 
-export const tablesAtom = atom({
-  key: "tables", default: []
+export const relAtom = atom({
+  key: "rel", default: { tables: [], relations: [] }
+})
+
+export const graphAtom = atom({
+  key: "graph", default: []
 })
