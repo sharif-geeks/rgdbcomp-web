@@ -2,13 +2,21 @@ import { useMemo } from "react";
 import { Edge, Network, Node } from "react-vis-network";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { graphAtom } from "~/recoil";
+import { detailsAtom, graphAtom } from "~/recoil";
 
-const p = ["#7ABAAB", "#C9B69F", "#B58494", "#746770"];
-const pallete = ["#726a95", "#709fb0", "#7ABAAB", "#C9B69F", "#B58494"];
+const activeColor = "#cd5d7d";
+const pallete = [
+  "#726a95",
+  "#709fb0",
+  "#7ABAAB",
+  "#C9B69F",
+  "#B58494",
+  "#746770",
+];
 
 function GraphModel() {
   const [graph] = useRecoilState(graphAtom);
+  const [info] = useRecoilState(detailsAtom);
 
   const keys = useMemo(() => {
     let list = [];
@@ -24,18 +32,23 @@ function GraphModel() {
       graph.map(({ node }) => ({
         id: node,
         label: node,
-        color: pallete[keys.indexOf(node.split("/")[0])],
+        color:
+          info?._id === node
+            ? activeColor
+            : pallete[keys.indexOf(node.split("/")[0])],
       })),
-    [graph, keys]
+    [graph, info?._id, keys]
   );
 
   const edges = useMemo(
     () =>
-      graph.filter((item) => item.from).map(({ from, to }) => ({ from, to })),
+      graph
+        .filter((item) => item.edge)
+        .map(({ edge: { from, to } }) => ({ from, to })),
     [graph]
   );
 
-  console.log(nodes, edges, keys);
+  console.log({ graph, nodes, edges, keys });
 
   return (
     <Container options={options}>

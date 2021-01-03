@@ -108,7 +108,7 @@ const reportGroups = [
         title: "Matches statistics",
         displayKeys: ["date_gmt", "stadium_name"],
         url: (r0g1, leagueId) => `/${!r0g1 ? "relation" : "graph"}/league/${leagueId}/matches`,
-        offest: true
+        hasOffest: true
       },
       {
         title: "Players technical stats",
