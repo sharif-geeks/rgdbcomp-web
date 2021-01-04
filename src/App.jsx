@@ -8,9 +8,9 @@ import Docs from "./pages/Docs";
 import Home from "./pages/Home";
 
 axios.defaults.baseURL =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:3000/"
-    : "http://localhost:3000/";
+  process.env.NODE_ENV === "production"
+    ? "http://45.82.138.169:3000/"
+    : "http://127.0.0.1:3000/";
 
 export default function App() {
   return (
@@ -36,5 +36,5 @@ export default function App() {
 const theme = createMuiTheme({
   shape: { borderRadius: 18 },
   palette: { type: "dark", primary: { main: accentColor } },
-  typography: { fontFamily: "Ubuntu" }
+  typography: { fontFamily: "Ubuntu" },
 });
