@@ -9,6 +9,7 @@ import React, {
 } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import {
+  dateRangeAtom,
   graphAtom,
   idsAtom,
   offsetAtom,
@@ -26,32 +27,44 @@ export default function ReportGroupItem({
 }) {
   const [ids] = useRecoilState(idsAtom);
   const [r0g1] = useRecoilState(rgdbAtom);
-
-  const requires = reportGroup.requires;
-  const params = useMemo(() => {
-    let newParams = [r0g1];
+  const urlArgs = useMemo(() => {
+    const requires = reportGroup.requires || [];
+    let newArgs = [r0g1];
     for (const i in requires) {
-      newParams = [...newParams, ids[requires[i]]];
+      newArgs = [...newArgs, ids[requires[i]]];
+    }
+    return newArgs;
+  }, [ids, r0g1, reportGroup.requires]);
+
+  const [{ start: startDate, end: endDate }] = useRecoilState(dateRangeAtom);
+  const params = useMemo(() => {
+    const keys = reportGroup.params || [];
+    let newParams = {};
+    if (keys.includes("date")) {
+      newParams = { ...newParams, startDate, endDate };
     }
     return newParams;
-  }, [ids, r0g1, requires]);
+  }, [endDate, reportGroup.params, startDate]);
 
   const [data, setData] = useState();
   const [offset, setOffset] = useRecoilState(offsetAtom);
   const setRel = useSetRecoilState(relAtom);
   const setGraph = useSetRecoilState(graphAtom);
   const setSpeed = useSetRecoilState(speedAtom);
-
   const _active = useRef(false);
-
   useEffect(() => {
-    if (typeof item.url === "function") {
+    if (typeof item.url === "function" && urlArgs && params) {
       axios
-        .get(item.url(...params))
+        .get(item.url(...urlArgs), { params })
         .then((res) => {
-          console.log(res);
-          setData(res.data);
+          console.groupCollapsed(
+            `ReportGroupItem %c${item.title}`,
+            "color: green;"
+          );
+          console.log({ res, data: res.data });
+          console.groupEnd();
 
+          setData(res.data);
           // if something changed while menu was open
           if (_active.current) {
             // update rel diagram
@@ -62,14 +75,11 @@ export default function ReportGroupItem({
             if (graph) setGraph(graph);
           }
         })
-        .catch((err) => {
-          console.log(err.response);
-        });
+        .catch(console.log);
     }
-  }, [item, params, setGraph, setRel]);
+  }, [item, urlArgs, setGraph, setRel, params]);
 
   const nodeId = useMemo(() => "depth1-" + index, [index]);
-
   const handleClick = useCallback(() => {
     setExpanded(!_active.current ? nodeId : undefined);
 

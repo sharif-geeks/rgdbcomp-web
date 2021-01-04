@@ -4,6 +4,7 @@ import { ExpandLessRounded, ExpandMoreRounded } from "@material-ui/icons";
 import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import { CursorPointer } from "../shared";
+import DateRangePicker from "./DateRangePicker";
 import ReportGroup from "./ReportGroup/ReportGroup";
 import reportGroups from "./reportGroups";
 import Selector from "./Selector";
@@ -30,6 +31,7 @@ export default function ReportExplorer() {
           {selectors.map((selector, i) => (
             <Selector {...selector} key={i} />
           ))}
+          <DateRangePicker />
         </SelectorsWrapper>
       )}
       {!showSelectors && <Divider />}

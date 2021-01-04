@@ -16,7 +16,7 @@ function RelModel() {
         axios
           .get("/relation/tableinfo/" + table)
           .then((res) => res.data)
-          .catch((err) => console.log(err.response))
+          .catch(console.log)
       )
     ).then((values) => setTableInfos(values));
   }, [tables]);

@@ -73,19 +73,22 @@ const reportGroups = [
     requires: ["team"],
     items: [
       {
-        title: "Purchased players stats",
+        title: "Purchased players stats (By period)",
         displayKeys: ["full_name"],
-        url: (r0g1, teamId) => `/${!r0g1 ? "relation" : "graph"}/team/${teamId}/players`
+        url: (r0g1, teamId) => `/${!r0g1 ? "relation" : "graph"}/team/${teamId}/players`,
+        params: ['date'] // TODO add datepicker below selectors
       },
       {
         title: "Team players contracts",
         displayKeys: ["full_name"],
-        url: (r0g1, teamId) => `/${!r0g1 ? "relation" : "graph"}/team/${teamId}/contract`
+        url: (r0g1, teamId) => `/${!r0g1 ? "relation" : "graph"}/team/${teamId}/contract`,
+        params: ['date'] // TODO add datepicker below selectors
       },
       {
         title: "Team tech staff contracts",
         displayKeys: ["full_name"],
-        url: (r0g1, teamId) => `/${!r0g1 ? "relation" : "graph"}/team/${teamId}/noneplayer`
+        url: (r0g1, teamId) => `/${!r0g1 ? "relation" : "graph"}/team/${teamId}/noneplayer`,
+        params: ['date'] // TODO add datepicker below selectors
       },
       {
         title: "Team total spent on players"

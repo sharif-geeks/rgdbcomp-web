@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { accentColor } from "~/assets/colors";
 import { Row } from "~/comps/shared";
 
 export default function Decorator({ cols }) {
@@ -13,8 +14,8 @@ export default function Decorator({ cols }) {
     <Container>
       <h2>{cols[0].table_name}</h2>
       <hr />
-      {colInfosToShow.map((c) => (
-        <Row justifySpaceBetween>
+      {colInfosToShow.map((c, i) => (
+        <Row justifySpaceBetween key={i}>
           <p>{c.name}</p>
           <p>{c.type}</p>
         </Row>
@@ -34,7 +35,7 @@ const Container = styled.div`
   box-sizing: border-box;
   transform: translateY(calc(100% + 7px));
   pointer-events: none;
-  background-color: #759681;
+  background-color: ${accentColor};
   border-radius: 8px;
   border: 2px solid white;
 

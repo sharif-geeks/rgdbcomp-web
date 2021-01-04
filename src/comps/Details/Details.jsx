@@ -97,10 +97,25 @@ const SpeedAnalyse = memo(() => {
   return !speed ? null : (
     <Row justifySpaceBetween padding="0 12px">
       <p>Retrieved in:</p>
-      <p>{Math.round(speed)} ms</p>
+      <p>
+        <Number n={speed}>{Math.round(speed)}</Number> ms
+      </p>
     </Row>
   );
 });
+
+const Number = styled.span`
+  color: ${(props) =>
+    props.n > 1000
+      ? "#746770"
+      : props.n > 500
+      ? "#B58494"
+      : props.n > 250
+      ? "#C9B69F"
+      : props.n > 100
+      ? "#7ABAAB"
+      : "#709fb0"};
+`;
 
 const useStyles = makeStyles((theme) => ({
   root: {

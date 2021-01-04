@@ -3,17 +3,8 @@ import { useEffect, useMemo, useState } from "react";
 import { Edge, Network, Node } from "react-vis-network";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { activeColor, pallete } from "~/assets/colors";
 import { detailsAtom, graphAtom, offsetAtom } from "~/recoil";
-
-const activeColor = "#cd5d7d";
-const pallete = [
-  "#726a95",
-  "#709fb0",
-  "#7ABAAB",
-  "#C9B69F",
-  "#B58494",
-  "#746770",
-];
 
 const limit = 8;
 
@@ -80,10 +71,7 @@ function GraphModel() {
     [smallGraph]
   );
 
-  console.log({ smallGraph, nodes });
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const netKey = useMemo(() => "net-" + Math.random() * 1000, [graph, start]);
+  // console.log({ smallGraph, nodes });
 
   const leafCount = useMemo(() => newGraph?.[leafKey]?.length, [
     leafKey,
@@ -94,6 +82,9 @@ function GraphModel() {
   useEffect(() => {
     setStart(offset * limit);
   }, [offset]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const netKey = useMemo(() => "net-" + Math.random() * 1000, [graph, start]);
 
   return (
     <Container>

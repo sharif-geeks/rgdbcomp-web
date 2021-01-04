@@ -51,7 +51,13 @@ function Selector({
     axios
       .get(url(r0g1, ...params))
       .then((res) => {
-        console.log(res);
+        console.groupCollapsed(
+          `${r0g1 ? "Graph" : "Relational"}: Selector %c${title}`,
+          "color: purple;"
+        );
+        console.log({ res, data: res.data });
+        console.groupEnd();
+
         setData(
           table
             ? res.data
@@ -60,15 +66,15 @@ function Selector({
             : res.data.info
         );
       })
-      .catch((err) => console.log(err.response));
-  }, [r0g1, table, params, url]);
+      .catch(console.log);
+  }, [r0g1, table, params, url, title]);
 
   return (
     <FormControl variant="filled" className={classes.formControl}>
       <InputLabel id={"selector-label-" + index}>{title}</InputLabel>
       <Select
         labelId={"selector-label-" + index}
-        value={ids[slug]}
+        value={ids[slug] || ""}
         onChange={(e) => onSelect({ slug, value: e.target.value })}
         style={{ backgroundColor: "#0005" }}
       >

@@ -2,6 +2,7 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import axios from "axios";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { RecoilRoot } from "recoil";
+import { accentColor } from "./assets/colors";
 import PageLayout from "./comps/PageLayout";
 import Docs from "./pages/Docs";
 import Home from "./pages/Home";
@@ -34,6 +35,6 @@ export default function App() {
 
 const theme = createMuiTheme({
   shape: { borderRadius: 18 },
-  palette: { type: "dark", primary: { main: "#759681" } },
+  palette: { type: "dark", primary: { main: accentColor } },
   typography: { fontFamily: "Ubuntu" },
 });
