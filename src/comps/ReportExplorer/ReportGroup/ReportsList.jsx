@@ -42,10 +42,11 @@ export default function ReportsList({ index, data, item, setOffset, offset }) {
           count={pagesCount}
           size="small"
           onChange={handleChangePage}
+          page={offset + 1}
           color="primary"
         />
       ),
-    [handleChangePage, hasPagination, pagesCount]
+    [handleChangePage, hasPagination, offset, pagesCount]
   );
 
   return !Array.isArray(reports) ? null : (

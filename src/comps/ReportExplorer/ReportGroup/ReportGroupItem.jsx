@@ -8,10 +8,22 @@ import React, {
   useState,
 } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { graphAtom, idsAtom, relAtom, rgdbAtom, speedAtom } from "~/recoil";
+import {
+  graphAtom,
+  idsAtom,
+  offsetAtom,
+  relAtom,
+  rgdbAtom,
+  speedAtom,
+} from "~/recoil";
 import ReportsList from "./ReportsList";
 
-export default function ReportGroupItem({ item, index, reportGroup }) {
+export default function ReportGroupItem({
+  item,
+  index,
+  reportGroup,
+  setExpanded,
+}) {
   const [ids] = useRecoilState(idsAtom);
   const [r0g1] = useRecoilState(rgdbAtom);
 
@@ -25,7 +37,7 @@ export default function ReportGroupItem({ item, index, reportGroup }) {
   }, [ids, r0g1, requires]);
 
   const [data, setData] = useState();
-  const [offset, setOffset] = useState(0);
+  const [offset, setOffset] = useRecoilState(offsetAtom);
   const setRel = useSetRecoilState(relAtom);
   const setGraph = useSetRecoilState(graphAtom);
   const setSpeed = useSetRecoilState(speedAtom);
@@ -56,7 +68,11 @@ export default function ReportGroupItem({ item, index, reportGroup }) {
     }
   }, [item, params, setGraph, setRel]);
 
+  const nodeId = useMemo(() => "depth1-" + index, [index]);
+
   const handleClick = useCallback(() => {
+    setExpanded(!_active.current ? nodeId : undefined);
+
     // if going to be active
     if (!_active.current) {
       setSpeed(data?.time);
@@ -69,11 +85,21 @@ export default function ReportGroupItem({ item, index, reportGroup }) {
     }
 
     _active.current = !_active.current;
-  }, [data?.graph, data?.tables, data?.time, setGraph, setRel, setSpeed]);
+  }, [
+    data?.graph,
+    data?.tables,
+    data?.time,
+    nodeId,
+    setExpanded,
+    setGraph,
+    setRel,
+    setSpeed,
+  ]);
 
   return !data ? null : (
     <TreeItem
-      nodeId={"depth1-" + index}
+      aria-expanded={true}
+      nodeId={nodeId}
       label={`${item.title} (${data.info?.length || 0})`}
       onClick={handleClick}
     >

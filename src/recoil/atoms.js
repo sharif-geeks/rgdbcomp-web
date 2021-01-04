@@ -25,3 +25,7 @@ export const relAtom = atom({
 export const graphAtom = atom({
   key: "graph", default: []
 })
+
+export const offsetAtom = atom({
+  key: "offset", default: 0
+})

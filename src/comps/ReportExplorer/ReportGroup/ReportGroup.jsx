@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import TreeView from "@material-ui/lab/TreeView";
-import React from "react";
+import React, { useState } from "react";
 import { useRecoilState } from "recoil";
 import { idsAtom } from "~/recoil";
 import ReportGroupItem from "./ReportGroupItem";
@@ -14,6 +14,7 @@ import ReportGroupItem from "./ReportGroupItem";
 export default function ReportGroup({ data: reportGroup }) {
   const classes = useStyles();
   const [ids] = useRecoilState(idsAtom);
+  const [expanded, setExpanded] = useState([]);
 
   for (const i in reportGroup.requires) {
     if (!ids[reportGroup.requires[i]]) return null;
@@ -28,9 +29,11 @@ export default function ReportGroup({ data: reportGroup }) {
         <TreeView
           defaultCollapseIcon={<ExpandMoreIcon />}
           defaultExpandIcon={<ChevronRightIcon />}
+          expanded={expanded}
         >
           {reportGroup.items.map((item, i) => (
             <ReportGroupItem
+              setExpanded={(v) => setExpanded([v])}
               reportGroup={reportGroup}
               item={item}
               index={i}

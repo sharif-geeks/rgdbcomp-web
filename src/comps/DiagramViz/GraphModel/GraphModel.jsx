@@ -1,9 +1,9 @@
-import { Slider, Typography } from "@material-ui/core";
-import { useMemo, useState } from "react";
+import { Slider, Typography, withStyles } from "@material-ui/core";
+import { useEffect, useMemo, useState } from "react";
 import { Edge, Network, Node } from "react-vis-network";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { detailsAtom, graphAtom } from "~/recoil";
+import { detailsAtom, graphAtom, offsetAtom } from "~/recoil";
 
 const activeColor = "#cd5d7d";
 const pallete = [
@@ -15,7 +15,7 @@ const pallete = [
   "#746770",
 ];
 
-const limit = 10;
+const limit = 8;
 
 function GraphModel() {
   const [start, setStart] = useState(0);
@@ -82,9 +82,22 @@ function GraphModel() {
 
   console.log({ smallGraph, nodes });
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const netKey = useMemo(() => "net-" + Math.random() * 1000, [graph, start]);
+
+  const leafCount = useMemo(() => newGraph?.[leafKey]?.length, [
+    leafKey,
+    newGraph,
+  ]);
+
+  const [offset, setOffset] = useRecoilState(offsetAtom);
+  useEffect(() => {
+    setStart(offset * limit);
+  }, [offset]);
+
   return (
     <Container>
-      <Network options={options} style={{ height: "100%" }}>
+      <Network key={netKey} options={options} style={{ height: "100%" }}>
         {nodes.map((node, i) => (
           <Node {...node} key={i} />
         ))}
@@ -96,22 +109,21 @@ function GraphModel() {
         <Typography id="discrete-slider" gutterBottom>
           Offset of First Leaf Nodes
         </Typography>
-        <Slider
-          defaultValue={0}
-          getAriaValueText={(v) => `${v} items`}
-          onChangeCommitted={(e, v) => setStart(v)}
-          aria-labelledby="discrete-slider"
+        <PrettoSlider
           valueLabelDisplay="auto"
+          valueLabelFormat={(x) => Math.floor(x / limit) + 1}
+          onChangeCommitted={(e, x) => {
+            setStart(x);
+            setOffset(Math.floor(x / limit));
+          }}
+          defaultValue={offset * limit}
+          aria-labelledby="discrete-slider"
           step={limit}
-          marks
           min={0}
           max={
             newGraph?.[leafKey]
-              ? Math.max(
-                  newGraph[leafKey].length,
-                  newGraph[leafKey].length - limit
-                )
-              : 10
+              ? Math.max(0, Math.ceil((leafCount - limit) / limit) * limit)
+              : limit
           }
         />
       </SliderRoot>
@@ -121,11 +133,42 @@ function GraphModel() {
 
 export default GraphModel;
 
+const PrettoSlider = withStyles({
+  root: {
+    color: "#52af77",
+    height: 8,
+    position: "relative",
+  },
+  thumb: {
+    height: 24,
+    width: 24,
+    backgroundColor: "#fff",
+    border: "2px solid currentColor",
+    marginTop: -8,
+    marginLeft: -12,
+    "&:focus, &:hover, &$active": {
+      boxShadow: "inherit",
+    },
+  },
+  active: {},
+  valueLabel: {
+    left: "calc(-50% + 4px)",
+  },
+  track: {
+    height: 8,
+    borderRadius: 4,
+  },
+  rail: {
+    height: 8,
+    borderRadius: 4,
+  },
+})(Slider);
+
 const SliderRoot = styled.div`
   position: absolute;
-  bottom: 8px;
-  left: 8px;
-  max-width: 300px;
+  bottom: 12px;
+  left: 22px;
+  max-width: calc(100% - 16px);
 `;
 
 const Container = styled.div`
