@@ -1,56 +1,88 @@
 import TreeItem from "@material-ui/lab/TreeItem";
 import axios from "axios";
-import React, { useEffect, useMemo, useState } from "react";
-import { useRecoilState } from "recoil";
-import { idsAtom, rgdbAtom } from "~/recoil";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { graphAtom, idsAtom, relAtom, rgdbAtom, speedAtom } from "~/recoil";
 import ReportsList from "./ReportsList";
 
-const perPage = 8;
-
 export default function ReportGroupItem({ item, index, reportGroup }) {
-  const [data, setData] = useState();
   const [ids] = useRecoilState(idsAtom);
   const [r0g1] = useRecoilState(rgdbAtom);
 
   const requires = reportGroup.requires;
-
-  const [offset, setOffset] = useState(0);
-
   const params = useMemo(() => {
     let newParams = [r0g1];
-    if (item.hasOffset) newParams = [...newParams, offset];
     for (const i in requires) {
       newParams = [...newParams, ids[requires[i]]];
     }
     return newParams;
-  }, [ids, item.hasOffset, offset, r0g1, requires]);
+  }, [ids, r0g1, requires]);
+
+  const [data, setData] = useState();
+  const [offset, setOffset] = useState(0);
+  const setRel = useSetRecoilState(relAtom);
+  const setGraph = useSetRecoilState(graphAtom);
+  const setSpeed = useSetRecoilState(speedAtom);
+
+  const _active = useRef(false);
 
   useEffect(() => {
     if (typeof item.url === "function") {
       axios
-        .get(item.url(...params), {
-          params: item.hasOffset && { offset, count: perPage },
-        })
+        .get(item.url(...params))
         .then((res) => {
           console.log(res);
           setData(res.data);
+
+          // if something changed while menu was open
+          if (_active.current) {
+            // update rel diagram
+            const tables = res.data?.tables;
+            if (tables) setRel({ tables });
+            // update graph diagram
+            const graph = res.data?.graph;
+            if (graph) setGraph(graph);
+          }
         })
         .catch((err) => {
           console.log(err.response);
         });
     }
-  }, [ids, item, params, r0g1, reportGroup.requires]);
+  }, [item, params, setGraph, setRel]);
+
+  const handleClick = useCallback(() => {
+    // if going to be active
+    if (!_active.current) {
+      setSpeed(data?.time);
+      // update rel diagram
+      const tables = data?.tables;
+      if (tables) setRel({ tables });
+      // update graph diagram
+      const graph = data?.graph;
+      if (graph) setGraph(graph);
+    }
+
+    _active.current = !_active.current;
+  }, [data?.graph, data?.tables, data?.time, setGraph, setRel, setSpeed]);
 
   return !data ? null : (
     <TreeItem
       nodeId={"depth1-" + index}
       label={`${item.title} (${data.info?.length || 0})`}
+      onClick={handleClick}
     >
       <ReportsList
+        offset={offset}
+        setOffset={setOffset}
         index={index}
         data={data}
         item={item}
-        setOffset={!!item.hasOffset && setOffset}
       />
     </TreeItem>
   );
