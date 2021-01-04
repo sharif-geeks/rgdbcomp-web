@@ -37,4 +37,21 @@ const theme = createMuiTheme({
   shape: { borderRadius: 18 },
   palette: { type: "dark", primary: { main: accentColor } },
   typography: { fontFamily: "Ubuntu" },
+  props: {
+    MuiTextField: {
+      style: {
+        backgroundColor: "rgba(0, 0, 0, 0.333)",
+        borderRadius: "18px 18px 0 0",
+      },
+    },
+    MuiFormLabel: {
+      style: { padding: "8px 0 0 12px" },
+    },
+    MuiInputBase: {
+      style: { padding: "8px 4px 8px 12px" },
+    },
+    MuiInputAdornment: {
+      style: { transform: "translateY(-8px)" },
+    },
+  },
 });
