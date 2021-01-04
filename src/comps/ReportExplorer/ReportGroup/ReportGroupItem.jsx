@@ -29,7 +29,7 @@ export default function ReportGroupItem({
   const [r0g1] = useRecoilState(rgdbAtom);
   const urlArgs = useMemo(() => {
     const requires = reportGroup.requires || [];
-    let newArgs = [r0g1];
+    let newArgs = [r0g1]; // always required - always first arg
     for (const i in requires) {
       newArgs = [...newArgs, ids[requires[i]]];
     }
@@ -41,6 +41,7 @@ export default function ReportGroupItem({
     const keys = reportGroup.params || [];
     let newParams = {};
     if (keys.includes("date")) {
+      if (!startDate || !endDate) return null;
       newParams = { ...newParams, startDate, endDate };
     }
     return newParams;
@@ -52,6 +53,7 @@ export default function ReportGroupItem({
   const setGraph = useSetRecoilState(graphAtom);
   const setSpeed = useSetRecoilState(speedAtom);
   const _active = useRef(false);
+
   useEffect(() => {
     if (typeof item.url === "function" && urlArgs && params) {
       axios
@@ -94,6 +96,7 @@ export default function ReportGroupItem({
       if (graph) setGraph(graph);
     }
 
+    // toggle active state
     _active.current = !_active.current;
   }, [
     data?.graph,

@@ -105,16 +105,28 @@ const SpeedAnalyse = memo(() => {
 });
 
 const Number = styled.span`
+  font-weight: bolder;
+  text-shadow: 0 0 12px #000d;
   color: ${(props) =>
     props.n > 1000
-      ? "#746770"
+      ? "#ff7070"
       : props.n > 500
-      ? "#B58494"
+      ? "#ffa970"
       : props.n > 250
-      ? "#C9B69F"
+      ? "#fffa70"
       : props.n > 100
-      ? "#7ABAAB"
-      : "#709fb0"};
+      ? "#a2ff70"
+      : "#70ff72"};
+  animation: bounce ease 3s infinite;
+
+  @keyframes bounce {
+    0%, 100% {
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
 `;
 
 const useStyles = makeStyles((theme) => ({
