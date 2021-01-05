@@ -4,14 +4,14 @@ import { Edge, Network, Node } from "react-vis-network";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { activeColor, pallete } from "~/assets/colors";
-import { detailsAtom, graphAtom, offsetAtom } from "~/recoil";
+import { dataAtom, detailsAtom, offsetAtom } from "~/recoil";
 
 const limit = 8;
 
 function GraphModel() {
   const [start, setStart] = useState(0);
-  const [graph] = useRecoilState(graphAtom);
-  const [info] = useRecoilState(detailsAtom);
+  const [{ graph }] = useRecoilState(dataAtom);
+  const [details] = useRecoilState(detailsAtom);
 
   // TODO use wasm for this - expensive
   const { keys, newGraph } = useMemo(() => {
@@ -56,11 +56,11 @@ function GraphModel() {
         id: node,
         label: node,
         color:
-          info?._id === node
+          details?._id === node
             ? activeColor
             : pallete[keys.indexOf(node.split("/")[0])],
       })),
-    [info?._id, keys, smallGraph]
+    [details?._id, keys, smallGraph]
   );
 
   const edges = useMemo(
