@@ -2,6 +2,7 @@
   "name": "rgdbcomp",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:3000",
   "dependencies": {
     "@babel/core": "7.12.3",
     "@date-io/date-fns": "^1.3.13",
