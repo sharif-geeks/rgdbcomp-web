@@ -9,7 +9,7 @@ import Home from "./pages/Home";
 
 axios.defaults.baseURL =
   process.env.NODE_ENV === "production"
-    ? "http://45.82.138.169:3000/"
+    ? "https://45.82.138.169:3000/"
     : "http://127.0.0.1:3000/";
 
 export default function App() {
