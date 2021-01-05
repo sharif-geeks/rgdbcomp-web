@@ -31,7 +31,7 @@ export default function ReportsList({ index, data, item, setOffset, offset }) {
           />
         ))
         .slice(perPage * offset, perPage * (offset + 1)),
-    [data, index, item, offset, reports]
+    [index, item, offset, reports]
   );
 
   const renderPagination = useMemo(
