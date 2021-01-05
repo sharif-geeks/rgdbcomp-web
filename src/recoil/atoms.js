@@ -15,16 +15,8 @@ export const detailsAtom = atom({
   key: "details", default: []
 })
 
-export const speedAtom = atom({
-  key: "speed", default: null
-})
-
-export const relAtom = atom({
-  key: "rel", default: { tables: [], relations: [] }
-})
-
-export const graphAtom = atom({
-  key: "graph", default: []
+export const dataAtom = atom({
+  key: "data", default: { graph: [], tables: [], info: [], time: null }
 })
 
 export const offsetAtom = atom({

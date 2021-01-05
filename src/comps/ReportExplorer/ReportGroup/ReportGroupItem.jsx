@@ -9,13 +9,11 @@ import React, {
 } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import {
+  dataAtom,
   dateRangeAtom,
-  graphAtom,
   idsAtom,
   offsetAtom,
-  relAtom,
   rgdbAtom,
-  speedAtom,
 } from "~/recoil";
 import ReportsList from "./ReportsList";
 
@@ -49,9 +47,7 @@ export default function ReportGroupItem({
 
   const [data, setData] = useState();
   const [offset, setOffset] = useRecoilState(offsetAtom);
-  const setRel = useSetRecoilState(relAtom);
-  const setGraph = useSetRecoilState(graphAtom);
-  const setSpeed = useSetRecoilState(speedAtom);
+  const setCurrentData = useSetRecoilState(dataAtom);
   const _active = useRef(false);
 
   useEffect(() => {
@@ -68,46 +64,20 @@ export default function ReportGroupItem({
 
           setData(res.data);
           // if something changed while menu was open
-          if (_active.current) {
-            // update rel diagram
-            const tables = res.data?.tables;
-            if (tables) setRel({ tables });
-            // update graph diagram
-            const graph = res.data?.graph;
-            if (graph) setGraph(graph);
-          }
+          if (_active.current) setCurrentData(res.data);
         })
         .catch(console.log);
     }
-  }, [item, urlArgs, setGraph, setRel, params]);
+  }, [item, urlArgs, params, setCurrentData]);
 
   const nodeId = useMemo(() => "depth1-" + index, [index]);
   const handleClick = useCallback(() => {
     setExpanded(!_active.current ? nodeId : undefined);
-
     // if going to be active
-    if (!_active.current) {
-      setSpeed(data?.time);
-      // update rel diagram
-      const tables = data?.tables;
-      if (tables) setRel({ tables });
-      // update graph diagram
-      const graph = data?.graph;
-      if (graph) setGraph(graph);
-    }
-
+    if (!_active.current) setCurrentData(data);
     // toggle active state
     _active.current = !_active.current;
-  }, [
-    data?.graph,
-    data?.tables,
-    data?.time,
-    nodeId,
-    setExpanded,
-    setGraph,
-    setRel,
-    setSpeed,
-  ]);
+  }, [data, nodeId, setCurrentData, setExpanded]);
 
   return !data ? null : (
     <TreeItem

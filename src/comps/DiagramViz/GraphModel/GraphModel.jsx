@@ -1,17 +1,16 @@
 import { Slider, Typography, withStyles } from "@material-ui/core";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Edge, Network, Node } from "react-vis-network";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { activeColor, pallete } from "~/assets/colors";
-import { detailsAtom, graphAtom, offsetAtom } from "~/recoil";
+import { dataAtom, detailsAtom, offsetAtom } from "~/recoil";
 
 const limit = 8;
 
 function GraphModel() {
-  const [start, setStart] = useState(0);
-  const [graph] = useRecoilState(graphAtom);
-  const [info] = useRecoilState(detailsAtom);
+  const [{ graph = [], info = [] }] = useRecoilState(dataAtom);
+  const [details] = useRecoilState(detailsAtom);
 
   // TODO use wasm for this - expensive
   const { keys, newGraph } = useMemo(() => {
@@ -30,8 +29,8 @@ function GraphModel() {
     return { keys, newGraph };
   }, [graph]);
 
-  const leafKey = useMemo(() => keys[keys.length - 1], [keys]);
-
+  const [start, setStart] = useState(0);
+  const leafKey = useMemo(() => info?.[0]?._id?.split("/")[0], [info]); // _id?. because data might belong to rel
   const smallGraph = useMemo(() => {
     let arr = [];
 
@@ -50,17 +49,30 @@ function GraphModel() {
     return arr;
   }, [newGraph, leafKey, start]);
 
+  // render functions
+
+  const setDetails = useSetRecoilState(detailsAtom);
+  const handleNetworkClick = useCallback(
+    ({ nodes: [nodeId] }) => {
+      if (nodeId.split("/")[0] === leafKey)
+        setDetails(info.find((item) => item._id === nodeId));
+    },
+    [info, leafKey, setDetails]
+  );
+
+  // render variables
+
   const nodes = useMemo(
     () =>
       smallGraph.map(({ node }) => ({
         id: node,
         label: node,
         color:
-          info?._id === node
+          details?._id === node
             ? activeColor
             : pallete[keys.indexOf(node.split("/")[0])],
       })),
-    [info?._id, keys, smallGraph]
+    [details?._id, keys, smallGraph]
   );
 
   const edges = useMemo(
@@ -70,8 +82,6 @@ function GraphModel() {
         .map(({ edge: { from, to } }, i) => ({ from, to, id: "edge-" + i })),
     [smallGraph]
   );
-
-  // console.log({ smallGraph, nodes });
 
   const leafCount = useMemo(() => newGraph?.[leafKey]?.length, [
     leafKey,
@@ -88,7 +98,12 @@ function GraphModel() {
 
   return (
     <Container>
-      <Network key={netKey} options={options} style={{ height: "100%" }}>
+      <Network
+        key={netKey}
+        options={options}
+        style={{ height: "100%" }}
+        onClick={handleNetworkClick}
+      >
         {nodes.map((node, i) => (
           <Node {...node} key={i} />
         ))}

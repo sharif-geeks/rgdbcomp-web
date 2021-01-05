@@ -11,7 +11,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import { Fragment, memo, useCallback, useMemo, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { detailsAtom, speedAtom } from "~/recoil";
+import { dataAtom, detailsAtom } from "~/recoil";
 import { Row } from "../shared";
 
 export default memo(function Details() {
@@ -92,7 +92,7 @@ const ListView = memo(({ items, name }) => {
 });
 
 const SpeedAnalyse = memo(() => {
-  const [speed] = useRecoilState(speedAtom);
+  const [{ time: speed }] = useRecoilState(dataAtom);
 
   return !speed ? null : (
     <Row justifySpaceBetween padding="0 12px">
@@ -120,7 +120,8 @@ const Number = styled.span`
   animation: bounce ease 3s infinite;
 
   @keyframes bounce {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 0.5;
     }
     50% {
