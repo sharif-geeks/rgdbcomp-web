@@ -1,5 +1,5 @@
 import DateFnsUtils from "@date-io/date-fns";
-import { createMuiTheme, ThemeProvider, withStyles } from "@material-ui/core";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
@@ -73,21 +73,22 @@ const theme = createMuiTheme({
   shape: { borderRadius: 18 },
   palette: { type: "dark", primary: { main: accentColor } },
   typography: { fontFamily: "Ubuntu" },
-  props: {
+  overrides: {
     MuiTextField: {
-      style: {
+      root: {
         backgroundColor: "rgba(0, 0, 0, 0.333)",
         borderRadius: "18px 18px 0 0",
+        '& [class*="MuiInputLabel-shrink"]': { marginTop: 8 },
       },
     },
     MuiFormLabel: {
-      style: { padding: "8px 0 0 12px" },
+      root: { marginLeft: 12 },
     },
     MuiInputBase: {
-      style: { padding: "8px 4px 8px 12px" },
+      root: { padding: "8px 4px 8px 12px" },
     },
     MuiInputAdornment: {
-      style: { transform: "translateY(-8px)" },
+      root: { transform: "translateY(-8px)" },
     },
   },
 });

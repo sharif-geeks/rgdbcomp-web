@@ -3,7 +3,7 @@ import React, { useCallback } from "react";
 import { useSetRecoilState } from "recoil";
 import { detailsAtom } from "~/recoil";
 
-export default function ReportsListItem({ index, data, item, report, i }) {
+export default function ReportsListItem({ index, item, report, i }) {
   const setDetails = useSetRecoilState(detailsAtom);
 
   const handleClick = useCallback(() => {

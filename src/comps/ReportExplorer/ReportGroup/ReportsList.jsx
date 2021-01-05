@@ -25,7 +25,6 @@ export default function ReportsList({ index, data, item, setOffset, offset }) {
           <ReportsListItem
             report={report}
             index={index}
-            data={data}
             item={item}
             i={i}
             key={i}
