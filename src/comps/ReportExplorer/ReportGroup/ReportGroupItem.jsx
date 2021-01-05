@@ -7,7 +7,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import {
   dataAtom,
   dateRangeAtom,
@@ -47,7 +47,7 @@ export default function ReportGroupItem({
 
   const [data, setData] = useState();
   const [offset, setOffset] = useRecoilState(offsetAtom);
-  const setCurrentData = useRecoilState(dataAtom);
+  const setCurrentData = useSetRecoilState(dataAtom);
   const _active = useRef(false);
 
   useEffect(() => {
